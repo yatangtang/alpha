@@ -1,0 +1,33 @@
+
+.left-btn{
+    background: transparent;
+    border: transparent;
+    padding-bottom: 40px;
+    margin-top: 20px;
+}
+.layui-input-block{
+    width: 350px;
+    margin: 20px;
+    margin-left: 440px;
+}
+.nav-right{
+    background: #00a294;
+    filter:Alpha(opacity=0.1);
+    text-align: center;
+}
+.img-right{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.layui-form-label{
+    margin-left: 360px;
+    padding-left: 8px;
+}
+.font{
+    size: 35px;
+}
+body{
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+}

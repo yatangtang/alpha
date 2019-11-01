@@ -1,0 +1,121 @@
+.layui-icon{
+ color: #009688;
+    font-size: 15px;
+}
+.detail{
+    width: 560px;
+    height: 400px;
+    background: url(../img/leaves-pattern.png);
+    display: inline-block;
+    letter-spacing: 2px;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 5px;
+    z-index: 1;
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 105px;
+
+}
+.garbage{
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    margin-top: 100px;
+    z-index: 2;
+    position: absolute;
+}
+.garbage p{
+    padding: 2px 2px 2px 5px;
+}
+.text{
+    /*padding-left:105px;
+    padding-top:20px;*/
+    padding: 20px 13px 0px 105px;
+}
+.icon-span{
+    z-index: 2;
+    margin-left: 440px;
+    background-color: transparent;
+    margin-top: 50px;
+}
+.icon{
+    color: #cc0007;
+    font-size: 20px;
+    padding-top: 2px;
+}
+.icon-txt{
+    display: inline-block;
+    color: black;
+    font-size: 18px;
+}
+.span-bottom{
+    margin-top: 460px;
+}
+.thumbnail{
+    line-height: 2.428571;
+    border: 0px;
+    padding: 3px 9px 0px 7px;
+    margin: 0px;
+    background: transparent;
+}
+.col-md-offset-3{
+    margin-left: 23%;
+}
+.layui-nav{
+    background: transparent;
+    color: white;
+    border-radius: 0px;
+}
+.layui-nav .layui-nav-item a{
+    color: white;
+}
+.layui-nav .layui-nav-item a:hover{
+    color: black;
+}
+.layui-nav * {
+    font-size: 17px;
+}
+#ul1 {
+    height:400px;
+    /* border:1px solid black;*/
+    margin:10px auto;
+    overflow:hidden;
+    padding-left: 10px;
+}
+.mes-icon{
+    padding-right: 5px;
+    float: right;
+    padding-top: 25px;
+}
+#ul1 li {
+    border: 1px solid #999;
+    padding:3px;
+    margin-bottom: 1px;
+    list-style:none;
+    overflow:hidden;
+    filter:alpha(opacity:0);
+    opacity:0;
+    height: auto;
+    position: relative;
+
+}
+h5{
+    display: inline-block;
+    line-height: 3.01rem;
+    padding: 0px;
+    margin-right: 20px;
+}
+
+.layui-fluid{
+    padding-left: 0px;
+}
+.layui-btn{
+    margin-top: 10px;
+}
+.layui-textarea{
+    min-height: 120px;
+}
+span:hover {
+    cursor:pointer;
+}

@@ -1,0 +1,41 @@
+.layui-container{
+    margin-bottom: 20px;
+}
+.layui-input-block{
+    display:flex;height: 38px;line-height: 38px;padding-right:19px;
+    width: 70%;
+    margin-top: 140px;
+    margin-bottom: 0px;
+    margin-left: 160px;
+}
+.layui-input, .layui-select, .layui-textarea {
+    border-style: none;
+}
+.layui-btn-primary{
+    border: 0px;
+}
+h3{
+    display: inline-block;
+}
+.hr{
+    display: inline-block!important;
+}
+.title{
+    display: inline-block;
+    margin-inline-start: 2px;
+    margin-inline-end: 17px;
+    padding-block-start: 0.35em;
+    padding-inline-start: 41.75em;
+    padding-inline-end: 43.75em;
+    padding-block-end: -3.375em;
+    min-inline-size: min-content;
+    border-width: 1px 0 0;
+}
+.footer{
+    padding: 20px;
+}
+.font{
+    size: 30px;
+    margin: 0px;
+    letter-spacing: 10px;
+}
