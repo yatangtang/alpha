@@ -4,6 +4,15 @@ public class User {
     private int id;
     private String loginName;
     private String loginPass;
+    private String sex;
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public int getId() {
         return id;

@@ -14,7 +14,7 @@
 <!--<link rel="stylesheet" href="./css/search.css">-->
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>搜索结果</title>
 </head>
 <body>
 <!--导航栏部分-->
@@ -22,25 +22,25 @@
     <ul>
         <li><img src="../img/树叶.png" alt=""></li>
         <li>易分垃圾网</li>
-        <li><a href="/forjsp/index.jsp">首页</a></li>
-        <li><a href="/forjsp/garbage.jsp">分类指南</a></li>
-        <li><a href="/forjsp/search_result.jsp">分类查询</a></li>
-        <li><a href="/forjsp/news_center.jsp">新闻中心</a></li>
+        <li><a href="../forjsp/index.jsp">首页</a></li>
+        <li><a href="../forjsp/garbage.jsp">分类指南</a></li>
+        <li><a href="../forjsp/search_result.jsp">分类查询</a></li>
+        <li><a href="../forjsp/news_center.jsp">新闻中心</a></li>
     </ul>
 </div>
 <%
     ArrayList<Garbage> garbageList = (ArrayList<Garbage>)session.getAttribute("detail_garbage");
     int i=Integer.parseInt(request.getParameter("id"));
 %>
-<p>"<%=garbageList.get(i).getName()%>"属于[<%=garbageList.get(i).getType()%>]</p>
-<div class="search1">
-    <h4>干垃圾</h4><br>
-    又称其它垃圾，除有害垃圾、可回收垃圾、是垃圾意外的其他生活废弃物
-</div>
-<div class="search2">
-    <h4>干垃圾主要包括</h4><br>
-    餐盒、餐巾纸、湿巾纸、卫生间用纸、塑料袋、食品包装袋、污染严重的纸、烟蒂、纸尿裤、一次性杯子、大骨头、备课等
-</div>
+<p style="white-space:nowrap;">"<%=garbageList.get(i).getName()%>"属于[<%=garbageList.get(i).getType()%>]</p>
+<%--<div class="search1">--%>
+    <%--<h4>干垃圾</h4><br>--%>
+    <%--又称其它垃圾，除有害垃圾、可回收垃圾、是垃圾意外的其他生活废弃物--%>
+<%--</div>--%>
+<%--<div class="search2">--%>
+    <%--<h4>干垃圾主要包括</h4><br>--%>
+    <%--餐盒、餐巾纸、湿巾纸、卫生间用纸、塑料袋、食品包装袋、污染严重的纸、烟蒂、纸尿裤、一次性杯子、大骨头、备课等--%>
+<%--</div>--%>
 <div class="search3">
     <h4><%=garbageList.get(i).getName()%>投放要求</h4><br>
     <ul>

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="../css/garbage.css">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>垃圾分类科普</title>
     <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
     <script src="../js/garbage.js"></script>
 </head>
@@ -20,10 +20,10 @@
     <span><img src="../img/树叶.png" alt=""><p>易分环保网</p></span>
     <div class="top_nav">
         <ul>
-            <li><a href="index.jsp"><img src="../img/首页.png" alt="">首页</a></li>
-            <li><a href="garbage.jsp"><img src="../img/分类.png" alt="">垃圾分类</a></li>
-            <li><a href="news_center.jsp"><img src="../img/新闻.png" alt="">新闻</a></li>
-            <li><a href="message.html"><img src="../img/论坛.png" alt="">论坛</a></li>
+            <li><a href="../forjsp/index.jsp"><img src="../img/首页.png" alt="">首页</a></li>
+            <li><a href="../forjsp/garbage.jsp"><img src="../img/分类.png" alt="">垃圾分类</a></li>
+            <li><a href="../forjsp/news_center.jsp"><img src="../img/新闻.png" alt="">新闻</a></li>
+            <li><a href="../forjsp/message.html"><img src="../img/论坛.png" alt="">论坛</a></li>
         </ul>
     </div>
 </div>
@@ -32,10 +32,12 @@
     <video src="../video/垃圾分类.mp4" width="1000px" height="300px" autoplay="autoplay"  loop="loop"
            muted="muted"></video>
     <div class="search">
-        <input type="text" class="search_box">
+        <form class="layui-form" action="/GarbageSearch" method="post">
+        <input type="text" class="search_box" name="garbage_name">
         <div class="search_img">
-            <a href="garbage.jsp"><img src="../img/搜索.png" alt=""></a>
+            <button style="margin-top: -5px"><img src="../img/搜索.png" alt=""></button>
         </div>
+        </form>
     </div>
 </div>
 <!--垃圾分类部分-->

@@ -1,4 +1,7 @@
-<%--
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.nddmwdf.program.dao.NewsDao" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.nddmwdf.program.entity.News" %><%--
   Created by IntelliJ IDEA.
   User: ASUS
   Date: 2019/10/26
@@ -7,36 +10,41 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
+<%
+    NewsDao newsDao=new NewsDao();
+    List<News> nws=newsDao.defaultnews();
+    request.setAttribute("def", nws);
+%>
 <link rel="stylesheet" href="../layui-v2.5.5/layui/css/layui.css">
 <link rel="stylesheet" href="../css/new_center.css">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>新闻中心</title>
 </head>
 <!--新闻中心导航栏-->
 <div class="nav">
     <ul>
         <li><img src="../img/树叶.png" alt=""></li>
         <li>易分垃圾网</li>
-        <li><a href="">首页</a></li>
-        <li><a href="">分类指南</a></li>
-        <li><a href="">分类查询</a></li>
-        <li><a href="">新闻中心</a></li>
+        <li><a href="../forjsp/index.jsp">首页</a></li>
+        <li><a href="../forjsp/garbage.jsp">分类指南</a></li>
+        <li><a href="../forjsp/garbage.jsp">分类查询</a></li>
+        <li><a href="../forjsp/news_center.jsp">新闻中心</a></li>
     </ul>
 </div>
 <div class="span1"><span>环保要闻>></span></div>
 <div class="layui-carousel" id="test1">
     <div carousel-item>
-        <div><a href="newinfo.html"><img src="../img/垃圾信息一.jpeg" alt="">
+        <div><a href="#"><img src="../img/垃圾信息一.jpeg" alt="">
             <div class="text">广州小伙训练鹦鹉垃圾分类网友称赞聪明、神奇</div></a></div>
-        <div><a href="newinfo.html"><img src="../img/新闻信息二.jpg" alt=""><div class="text">学劳模，做垃圾分类小达人——2019“中国好作业”完美收官</div>></a></div>
-        <div><a href="newinfo.html"><img src="../img/新闻信息三.jpg" alt=""><div class="text">南锣鼓巷“花式”推广垃圾分类</div></a></div>
-        <div><a href="newinfo.html"><img src="../img/新闻信息四.jpg" alt=""><div class="text">天津：小志愿者助力社区环保 垃圾分类“画”出来</div></a></div>
-        <div><a href="newinfo.html"><img src="../img/新闻信息五.jpeg"alt=""><div class="text">“小手拉大手，垃圾分类进校园”活动走进火马冲镇中心小学</div></a></div>
-        <div><a href="newinfo.html"><img src="../img/新闻信息二.jpg" alt=""><div class="text">学劳模，做垃圾分类小达人——2019“中国好作业”完美收官</div></a></div>
-        <div><a href="newinfo.html"><img src="../img/新闻信息三.jpg" alt=""><div class="text">南锣鼓巷“花式”推广垃圾分类</div></a></div>
-        <div><a href="newinfo.html"><img src="../img/新闻信息四.jpg" alt=""><div class="text">天津：小志愿者助力社区环保 垃圾分类“画”出来</div></a></div>
-        <div><a href="newinfo.html"><img src="../img/新闻信息五.jpeg"alt=""><div class="text">“小手拉大手，垃圾分类进校园”活动走进火马冲镇中心小学</div></a></div>
+        <div><a href="#"><img src="../img/新闻信息二.jpg" alt=""><div class="text">学劳模，做垃圾分类小达人——2019“中国好作业”完美收官</div>></a></div>
+        <div><a href="#"><img src="../img/新闻信息三.jpg" alt=""><div class="text">南锣鼓巷“花式”推广垃圾分类</div></a></div>
+        <div><a href="#"><img src="../img/新闻信息四.jpg" alt=""><div class="text">天津：小志愿者助力社区环保 垃圾分类“画”出来</div></a></div>
+        <div><a href="#"><img src="../img/新闻信息五.jpeg"alt=""><div class="text">“小手拉大手，垃圾分类进校园”活动走进火马冲镇中心小学</div></a></div>
+        <div><a href="#"><img src="../img/新闻信息二.jpg" alt=""><div class="text">学劳模，做垃圾分类小达人——2019“中国好作业”完美收官</div></a></div>
+        <div><a href="#"><img src="../img/新闻信息三.jpg" alt=""><div class="text">南锣鼓巷“花式”推广垃圾分类</div></a></div>
+        <div><a href="#"><img src="../img/新闻信息四.jpg" alt=""><div class="text">天津：小志愿者助力社区环保 垃圾分类“画”出来</div></a></div>
+        <div><a href="#"><img src="../img/新闻信息五.jpeg"alt=""><div class="text">“小手拉大手，垃圾分类进校园”活动走进火马冲镇中心小学</div></a></div>
     </div>
 </div>
 <!-- 条目中可以是任意内容，如：<img src=""> -->
@@ -44,18 +52,9 @@
 <div class="new_center-left">
     <div class="new_list">
         <ul>
-            <li><span></span><a href="newinfo.html"><p>广州小伙训练鹦鹉垃圾分类 网友称赞聪明、神奇</p></a></li>
-            <li><span></span><a href="newinfo.html"><p>学劳模，做垃圾分类小达人——2019“中国好作业”完美收官</p></a></li>
-            <li><span></span><a href="newinfo.html"><p>南锣鼓巷“花式”推广垃圾分类</p> </a></li>
-            <li><span></span><a href="newinfo.html"><p>天津：小志愿者助力社区环保 垃圾分类“画”出来</p></a></li>
-            <li><span></span><a href="newinfo.html"><p>垃圾桶装上“小芯片” 浦东航头镇探索农村地区垃圾分类“智治”</p></a></li>
-            <li><span></span><a href="newinfo.html"><p>“小手拉大手，垃圾分类进校园”活动走进火马冲镇中心小学</p></a></li>
-            <li><span></span><a href="newinfo.html"><p>广州小伙训练鹦鹉垃圾分类 网友称赞聪明、神奇</p></a></li>
-            <li><span></span><a href="newinfo.html"><p>学劳模，做垃圾分类小达人——2019“中国好作业”完美收官</p></a></li>
-            <li><span></span><a href="newinfo.html"><p>南锣鼓巷“花式”推广垃圾分类</p> </a></li>
-            <li><span></span><a href="newinfo.html"><p>天津：小志愿者助力社区环保 垃圾分类“画”出来</p></a></li>
-            <li><span></span><a href="newinfo.html"><p>垃圾桶装上“小芯片” 浦东航头镇探 索农村地区垃圾分类“智治”</p></a></li>
-            <li><span></span><a href="newinfo.html"><p>“小手拉大手，垃圾分类进校园”活动走进火马冲镇中心小学</p></a></li>
+            <c:forEach items="${def}" var="news">
+            <li><span></span><a href="../forjsp/newinfo.jsp?text=${news.text}&title=${news.title}&shijian=${news.time}&author=${news.author}"><p>${news.title}</p></a></li>
+            </c:forEach>
         </ul>
     </div>
     <div class="footer">

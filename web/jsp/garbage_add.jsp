@@ -10,7 +10,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>欢迎页面-L-admin1.0</title>
+    <title>欢迎</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -37,7 +37,7 @@
             <div class="layui-input-inline">
                 <input type="text" id="gname" name="gname" required lay-verify="required"
                        autocomplete="off" class="layui-input">
-            </div>``````````````
+            </div>
         </div>
 
         <div class="layui-form-item">
@@ -46,8 +46,10 @@
             </label>
             <div class="layui-input-inline">
                 <select id="shipping" name="gtype" class="valid">
-                    <option value="干垃圾">干垃圾</option>
-                    <option value="湿垃圾">湿垃圾</option>
+                    <%--<option value="干垃圾">干垃圾</option>--%>
+                    <%--<option value="湿垃圾">湿垃圾</option>--%>
+                    <option value="可回收物">可回收物</option>
+                    <option value="有害垃圾">有害垃圾</option>
                 </select>
             </div>
         </div>

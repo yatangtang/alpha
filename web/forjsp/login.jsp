@@ -9,10 +9,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>易分环保网</title>
-    <script src="../js/use.js"></script>
+    <title>登录</title>
     <script src="../layui-v2.5.5/layui/layui.all.js"></script>
-    <script src="../js/register.js"></script>
 
     <link rel="stylesheet" href="../layui-v2.5.5/layui/css/layui.css">
     <link rel="script" href="../bootstrap-3.3.7/dist/js/bootstrap.min.js">
@@ -29,19 +27,19 @@
             <img src="../img/logo.png"class="img-right">
             <h5>易分垃圾网</h5>
             <button type="button"  class="left-btn">
-                <span class="layui-icon layui-icon-home"><a href="/forjsp/index.jsp">首页</a></span>
+                <span class="layui-icon layui-icon-home"><a href="../forjsp/index.jsp">首页</a></span>
             </button><br/>
             <button type="button"  class="left-btn">
-                <span class="layui-icon layui-icon-user"><a href="/forjsp/register.jsp">注册</a></span>
+                <span class="layui-icon layui-icon-user"><a href="../forjsp/register.jsp">注册</a></span>
             </button>
             <button type="button"  class="left-btn">
-                <span class="layui-icon layui-icon-read"><a href="/forjsp/garbage.jsp">分类指南</a></span>
+                <span class="layui-icon layui-icon-read"><a href="../forjsp/garbage.jsp">分类指南</a></span>
             </button>
             <button type="button"  class="left-btn">
-                <span class="layui-icon layui-icon-search"><a href="/forjsp/search_result.jsp">分类查询</a></span>
+                <span class="layui-icon layui-icon-search"><a href="../forjsp/search_result.jsp">分类查询</a></span>
             </button>
             <button type="button"  class="left-btn">
-                <span class="layui-icon layui-icon-release"><a href="/forjsp/news_center.jsp">新闻中心</a></span>
+                <span class="layui-icon layui-icon-release"><a href="../forjsp/news_center.jsp">新闻中心</a></span>
             </button>
             <br>
             <span class="layui-icon layui-icon-login-wechat font"></span>
@@ -52,7 +50,7 @@
             <div class="text-center">
                 <h3>登录</h3>
             </div>
-            <form class="layui-form text-center" method="post" action="/UserLogin">
+            <form class="layui-form text-center" lay-filter="form-box" action="/UserLogin">
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-block">
@@ -73,20 +71,13 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-filter="formDemo">登录</button>
+                        <button class="layui-btn" lay-submit  lay-filter="login">登录</button>
                     </div>
                 </div>
-
-
             </form>
         </div>
     </div>
 </div>
 </body>
-<script>
-    layui.use('form', function(){
-        var form = layui.form;
-        form.render();
-    });
-</script>
+<script src="../js/use.js"></script>
 </html>

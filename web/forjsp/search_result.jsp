@@ -25,17 +25,19 @@
     <ul>
         <li><img src="../img/树叶.png" alt=""></li>
         <li>易分垃圾网</li>
-        <li><a href="">首页</a></li>
-        <li><a href="">分类指南</a></li>
-        <li><a href="">分类查询</a></li>
-        <li><a href="">新闻中心</a></li>
+        <li><a href="../forjsp/index.jsp">首页</a></li>
+        <li><a href="../forjsp/garbage.jsp">分类指南</a></li>
+        <li><a href="../forjsp/garbage.jsp">分类查询</a></li>
+        <li><a href="../forjsp/news_center.jsp">新闻中心</a></li>
     </ul>
 </div>
 <div class="search">
-    <input type="text" class="search_box">
+    <form method="post" action="/GarbageSearch">
+    <input type="text" class="search_box" name="garbage_name">
     <div class="search_img">
-        <a href=""><img src="../img/搜索.png" alt=""></a>
+        <img src="../img/搜索.png" alt="">
     </div>
+    </form>
 </div>
 <table class="layui-table">
     <colgroup>
@@ -62,7 +64,7 @@
         <td><%= i%></td>
         <td><%=garbageList.get(i).getName()%></td>
         <td><%=garbageList.get(i).getType()%></td>
-        <td><a href="/forjsp/search_info.jsp?id=<%=i%>&name=id">详情</a></td>
+        <td><a href="../forjsp/search_info.jsp?id=<%=i%>&name=id">详情</a></td>
     </tr>
     <%
         }

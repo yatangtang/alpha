@@ -23,8 +23,8 @@ public class AdminDao {
             if(resultSet.next())
             {
                 admin=new Admin();
-                admin.setUserid(resultSet.getInt("id"));
-                admin.setLoginName(resultSet.getString("uname"));
+                admin.setUserid(resultSet.getInt("userid"));
+                admin.setLoginName(resultSet.getString("loginName"));
             }
         }
         catch (SQLException e)
@@ -35,6 +35,7 @@ public class AdminDao {
         {
             return 1;
         }
+        dbUtil.closeCon();
         return 0;
     }
 
@@ -49,6 +50,7 @@ public class AdminDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        dbUtil.closeCon();
     }
 
     public boolean validate(Admin admin)
@@ -74,6 +76,7 @@ public class AdminDao {
         {
             e.printStackTrace();
         }
+        dbUtil.closeCon();
         return valid;
     }
 }

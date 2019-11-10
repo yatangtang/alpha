@@ -6,13 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="../js/use.js"></script>
     <script src="../layui-v2.5.5/layui/layui.all.js"></script>
-    <script src="../js/register.js"></script>
 
     <link rel="stylesheet" href="../layui-v2.5.5/layui/css/layui.css">
     <link rel="script" href="../bootstrap-3.3.7/dist/js/bootstrap.min.js">
@@ -29,19 +28,19 @@
             <img src="../img/logo.png"class="img-right">
             <h5>易分垃圾网</h5>
             <button type="button"  class="left-btn">
-                <span class="layui-icon layui-icon-home"><a href="index.jsp">首页</a></span>
+                <span class="layui-icon layui-icon-home"><a href="../forjsp/index.jsp">首页</a></span>
             </button><br/>
             <button type="button"  class="left-btn">
-                <span class="layui-icon layui-icon-user"><a href="login.jsp">登录</a></span>
+                <span class="layui-icon layui-icon-user"><a href="../forjsp/login.jsp">登录</a></span>
             </button>
             <button type="button"  class="left-btn">
-                <span class="layui-icon layui-icon-read"><a href="garbage.jsp">分类指南</a></span>
+                <span class="layui-icon layui-icon-read"><a href="../forjsp/garbage.jsp">分类指南</a></span>
             </button>
             <button type="button"  class="left-btn">
-                <span class="layui-icon layui-icon-search"><a href="search_result.jsp">分类查询</a></span>
+                <span class="layui-icon layui-icon-search"><a href="../forjsp/garbage.jsp">分类查询</a></span>
             </button>
             <button type="button"  class="left-btn">
-                <span class="layui-icon layui-icon-release"><a href="news_center.jsp">新闻中心</a></span>
+                <span class="layui-icon layui-icon-release"><a href="../forjsp/garbage.jsp">新闻中心</a></span>
             </button>
             <br>
             <span class="layui-icon layui-icon-login-wechat font"></span>
@@ -52,7 +51,7 @@
             <div class="text-center">
                 <h3>注册</h3>
             </div>
-            <form class="layui-form text-center" method="post" action="/UserServlet">
+            <form class="layui-form text-center" action="/UserServlet" method="post">
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-block">
@@ -62,20 +61,13 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码</label>
                     <div class="layui-input-block">
-                        <input type="password"name="password" required lay-verify="pwd" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        <input type="password" name="passwd" required lay-verify="pwd" placeholder="请输入密码" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">昵称</label>
+                    <label class="layui-form-label">确认密码</label>
                     <div class="layui-input-block">
-                        <input type="text"name="akaname" required lay-verify="repass" placeholder="请填写昵称" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-
-                <div class="layui-form-item">
-                    <label class="layui-form-label">性别</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="usex"required lay-verify="repass" placeholder="请输入性别男或者女" autocomplete="off" class="layui-input">
+                        <input type="password" name="repasswd" required lay-verify="repass" placeholder="请再次确认密码" autocomplete="off" class="layui-input">
                     </div>
                 </div>
 
@@ -86,7 +78,7 @@
                 </div>
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button layui-submit class="layui-btn" lay-filter="formDemo">注册</button>
+                        <button lay-submit class="layui-btn" lay-filter="login" id="reg">注册</button>
                     </div>
                 </div>
 
@@ -96,10 +88,5 @@
     </div>
 </div>
 </body>
-<script>
-    layui.use('form', function(){
-        var form = layui.form;
-        form.render();
-    });
-</script>
+<script src="../js/use.js"></script>
 </html>

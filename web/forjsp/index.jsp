@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <meta charset="UTF-8">
-<title>Title</title>
+<title>易分环保网</title>
 <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="../js/jqthumb.js"></script>
 <script type="text/javascript" src="../layui-v2.5.5/layui/layui.all.js"></script>
@@ -36,6 +36,23 @@
             ,form = layui.form;
     }();
 </script>
+<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".login").c(function () {
+            if (${isLogin}) {
+                $(".login").hide();
+                $(".register").hide();
+            }
+        })
+        $(".register").click(function () {
+            if (${isLogin}) {
+                $(".login").hide();
+                $(".register").hide();
+            }
+        })
+    })
+</script>
 <style>
     .layui-nav{
         border-radius: 0px;
@@ -46,7 +63,7 @@
         width: auto;
     }
 </style>
-<body style="background:url(../img/houndstooth-pattern.png)">
+<body onload="userhide()" style="background:url(../img/houndstooth-pattern.png)">
 <!--顶部导航-->
 <div class="layui-fluid"style="padding: 0px;">
     <div class="layui-row">
@@ -62,24 +79,18 @@
         </div>
         <div class="layui-col-md3 layui-col-sm1">
             <ul class="layui-nav layui-bg-green">
-                <%--<li class="layui-nav-item">--%>
-                    <%--<a href="index.jsp">--%>
-                        <%--<span class="layui-icon layui-icon-home">首页</span>--%>
-                    <%--</a>--%>
-                <%--</li>--%>
-                <li class="layui-nav-item">
-                    <a href="login.jsp">
-                        <span class="layui-icon layui-icon-user">欢迎你，${loginName}</span>
+                <li class="layui-nav-item" id="user">
+                    <a href="../forjsp/user_center.jsp?username=${username}">
+                        <span class="layui-icon layui-icon-home">${username}</span>
                     </a>
                 </li>
-
                 <li class="layui-nav-item">
-                    <a href="login.jsp">
+                    <a href="../forjsp/login.jsp" class="login">
                         <span class="layui-icon layui-icon-user">登录</span>
                     </a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="register.jsp">
+                    <a href="../forjsp/register.jsp" class="register">
                         <span class="layui-icon layui-icon-release">注册</span>
                     </a>
                 </li>
@@ -101,13 +112,13 @@
                 <div id="rnav" style="display: none;">
                     <ul class="layui-nav layui-nav-tree">
                         <li class="layui-nav-item">
-                            <a href="search_result.jsp">分类查询</a>
+                            <a href="../forjsp/garbage.jsp">分类查询</a>
                         </li>
                         <li class="layui-nav-item">
-                            <a href="garbage.jsp">分类指南</a>
+                            <a href="../forjsp/garbage.jsp">分类指南</a>
                         </li>
                         <li class="layui-nav-item">
-                            <a href="news_center.jsp">新闻中心</a>
+                            <a href="../forjsp/news_center.jsp">新闻中心</a>
                         </li>
                         <li class="layui-nav-item">
                             <a href="#">加入我们</a>
@@ -121,7 +132,7 @@
             <!--文字-->
             <div class="text-center"style="padding-top: 150px;">
                 <h2 class="font">
-                    易分垃圾网
+                    易分环保网
                 </h2>
             </div>
             <!--搜索框-->
@@ -129,7 +140,7 @@
                 <div class="layui-form-item"></div>
                 <div class="layui-input-block" style="border-radius: 0px;">
                     <input type="text" name="garbage_name" required  lay-verify="required" placeholder="请输入要搜索的垃圾" autocomplete="off" class="layui-input">
-                    <button type="button" class="layui-btn layui-btn-primary layui-btn-md">
+                    <button type="submit" class="layui-btn layui-btn-primary layui-btn-md" >
                         <i class="layui-icon layui-icon-search"></i>
                     </button>
                 </div>
@@ -146,31 +157,27 @@
 <div class="container" style="margin-top: 30px;">
     <div class="row" id="div1">
         <div class="col-xs-1 col-md-3 ">
-            <a href="newinfo.jsp" class="thumbnail">
+            <a href="../forjsp/news_center.jsp" class="thumbnail">
                 <img src="../img/new.jpg" class="img-responsive"onload="DrawImage(this)">
                 <h3>垃圾回收场</h3>
-                <p>2008年中国某地塑料瓶回收场.....</p>
             </a>
         </div>
         <div class="col-xs-1 col-md-3">
-            <a href="newinfo.jsp" class="thumbnail">
+            <a href="../forjsp/news_center.jsp" class="thumbnail">
                 <img src="../img/new1.jpg" class="img-responsive"onload="DrawImage(this)">
                 <h3>上海推进垃圾分类</h3>
-                <p>shhklsfkdskjfkdslj</p>
             </a>
         </div>
         <div class="col-xs-1 col-md-3">
-            <a href="newinfo.jsp" class="thumbnail">
+            <a href="../forjsp/news_center.jsp" class="thumbnail">
                 <img src="../img/new2.jpg" class="img-responsive"onload="DrawImage(this)">
                 <h3>建立垃圾回收亭</h3>
-                <p>shhklsfkdskjfkdslj</p>
             </a>
         </div>
         <div class="col-xs-1 col-md-3">
-            <a href="newinfo.jsp" class="thumbnail">
+            <a href="../forjsp/news_center.jsp" class="thumbnail">
                 <img src="../img/new3.jpg" class="img-responsive"onload="DrawImage(this)">
                 <h3>相关垃圾摄影作品</h3>
-                <p>shhklsfkdskjfkdslj</p>
             </a>
         </div>
     </div>

@@ -17,6 +17,7 @@ public class GarbageDao {
         try {
             Statement st = con.createStatement();
             st.executeUpdate(sql);
+            dbUtil.closeCon();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -30,6 +31,7 @@ public class GarbageDao {
         try {
             Statement st = con.createStatement();
             st.executeUpdate(sql);
+            dbUtil.closeCon();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -46,6 +48,7 @@ public class GarbageDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        dbUtil.closeCon();
     }
     public List<Garbage> search(String garbage_name)
     {
@@ -78,11 +81,62 @@ public class GarbageDao {
             {
                 return null;
             }
+            dbUtil.closeCon();
             return list;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        dbUtil.closeCon();
         return null;
     }
+
+    public List<Garbage> queryuserlimit(int pageno) throws ClassNotFoundException ,SQLException
+    {
+        String sql="select * from garbage limit ?,?";
+        DbUtil dbUtil=new DbUtil();
+        ResultSet rs;
+        Connection connection=dbUtil.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1,(pageno*5)-5);
+        ps.setInt(2,5);
+        rs=ps.executeQuery();
+        List<Garbage> gb = new ArrayList();
+        while(rs.next()){
+            Garbage garbage = new Garbage();
+            garbage.setId(rs.getInt("garbage_id"));
+            garbage.setName(rs.getString("garbage_name"));
+            garbage.setContent(rs.getString("garbage_content"));
+            garbage.setType(rs.getString("garbage_type"));
+            gb.add(garbage);
+        }
+        rs.close();
+        ps.close();
+        dbUtil.closeCon();
+        return gb;
+    }
+
+    public int getPage() throws SQLException,ClassNotFoundException
+    {
+        String sql="SELECT count(*) from garbage";
+        DbUtil dbUtil=new DbUtil();
+        Connection con=dbUtil.getConnection();
+        ResultSet resultSet;
+        int totalgarbage;
+        try
+        {
+            Statement st=con.createStatement();
+            resultSet=st.executeQuery(sql);
+            resultSet.next();
+            totalgarbage=resultSet.getInt(1);
+            return totalgarbage;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        dbUtil.closeCon();
+        return 0;
+    }
+
 }

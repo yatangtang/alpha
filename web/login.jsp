@@ -17,7 +17,7 @@
 <body>
 <div id="wrapper" class="login-page">
     <div id="login_form" class="form">
-        <form class="login-form" action="/LoginServlet" method="get">
+        <form class="login-form" action="/LoginServlet" method="post">
             <h2>管理登录</h2>
             <input type="text" placeholder="用户名" id="user_name" name="loginName" />
             <input type="password" placeholder="密码" id="password" name="loginPass" />

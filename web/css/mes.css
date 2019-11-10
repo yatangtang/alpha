@@ -84,9 +84,8 @@
     padding-left: 10px;
 }
 .mes-icon{
-    padding-right: 5px;
+    padding-right: 3px;
     float: right;
-    padding-top: 25px;
 }
 #ul1 li {
     border: 1px solid #999;
@@ -114,8 +113,17 @@ h5{
     margin-top: 10px;
 }
 .layui-textarea{
-    min-height: 120px;
+    min-height: 130px;
 }
 span:hover {
     cursor:pointer;
+}
+.layui-col-md12{
+    margin: 10px 0px 10px 0px;
+}
+.icon-bottom{
+    margin-bottom: 9px;
+}
+.mes_mes{
+    padding: 3px;
 }

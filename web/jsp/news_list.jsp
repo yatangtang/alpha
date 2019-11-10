@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: ASUS
@@ -6,43 +7,28 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    class DbUtil {
-
-        ResourceBundle bundle = ResourceBundle.getBundle("jdbc");
-
-        private String dbUrl = bundle.getString("dbUrl");
-        private String dbUser = bundle.getString("dbUser");
-        private String dbPassword = bundle.getString("dbPassword");
-        private String driver = "com.mysql.jdbc.Driver";
-
-        private Connection connection = null;
-
-        public Connection getConnection(){
-            try {
-                Class.forName(driver);
-                connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-            } catch (Exception e) {
-                System.out.println("数据库连接失败");
-                e.printStackTrace();
-            }
-            return connection;
-        }
-
-        public void closeCon(){
-            if(connection != null)
-                try {
-                    connection.close();
-                    System.out.println("数据库已关闭");
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-        }
-    }
-%>
 <%@ page import="java.util.ResourceBundle" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="com.nddmwdf.program.dao.NewsDao" %>
+<%@ page import="com.nddmwdf.program.entity.News" %>
+<%@ page import="java.util.List" %>
 <html>
+<%
+    //打开浏览器时给pageno初始化，不然会报空指针异常
+    NewsDao nd = new NewsDao();
+    News n=new News();
+    if(request.getAttribute("npageno") == null){
+        request.setAttribute("npageno",1);
+    }
+    //给每条数据编序号
+    int count = 5*(Integer)request.getAttribute("npageno")-5;
+    if (request.getAttribute("news") == null) {
+        List<News> newsList = nd.queryuserlimit(1);
+        request.setAttribute("news", newsList);
+        int pagenum = nd.getPage();
+        request.setAttribute("npagenum", pagenum);
+    }
+%>
 <head>
     <meta charset="UTF-8">
     <title>欢迎页面-L-admin1.0</title>
@@ -81,9 +67,9 @@
         </form>
     </div>
     <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <%--<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>--%>
         <button class="layui-btn" onclick="x_admin_show('添加用户','./news_add.jsp')"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        <span class="x-right" style="line-height:40px">共有数据：<%= (Integer)request.getAttribute("nnum") %>条</span>
     </xblock>
 
     <table class="layui-table">
@@ -95,95 +81,94 @@
             <th>新闻编号</th>
             <th>新闻名称</th>
             <th>新闻内容</th>
-            <th>新闻图片</th>
             <th>新闻发表时间</th>
             <th>新闻作者</th>
             <th >操作</th>
         </tr>
         </thead>
         <tbody>
-        <%
-            DbUtil dbUtil=new DbUtil();
-            String sql="SELECT * from news";
-            Connection connection=dbUtil.getConnection();
-            PreparedStatement pst;
-            pst=connection.prepareStatement(sql);
-            ResultSet rs=pst.executeQuery(sql);
-            while(rs.next()){
-        %>
+
         <tr>
+            <c:forEach items="${news}" var="news">
             <td>
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <td><%=rs.getString(1)%></td>
-            <td><%=rs.getString(2)%></td>
-            <td><%=rs.getString(3)%></td>
-            <td><%=rs.getString(4)%></td>
-            <td><%=rs.getString(5)%></td>
-            <td><%=rs.getString(6)%></td>
+            <td>${news.id}</td>
+            <td>${news.title}</td>
+            <td>${news.text}</td>
+            <td>${news.time}</td>
+            <td>${news.author}</td>
 
             <td class="td-manage">
                 <a title=""  onclick="x_admin_show('编辑','')" href="/jsp/news_alter.jsp">
                     <i class="layui-icon">&#xe63c;</i>
                 </a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="/NewsDelete?news_id=<%=rs.getString(1)%>">
+                <a title="删除" onclick="member_del(this,'要删除的id')" href="/NewsDelete?news_id=${news.id}">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
             </td>
         </tr>
-        <%
-            }
-        %>
+        </c:forEach>
         </tbody>
     </table>
     <div class="page">
         <div>
-            <a class="prev" href="">&lt;&lt;</a>
-            <a class="num" href="">1</a>
-            <span class="current">2</span>
-            <a class="num" href="">3</a>
-            <a class="num" href="">489</a>
+            <td><button onclick="First()">首页</button></td>
+            <td><button onclick="Last()">上一页</button></td>
+            <td><button onclick="Next()">下一页</button></td>
+            <td><button onclick="End()">尾页</button></td>
+            <label>当前数据库中共有<%= (Integer)request.getAttribute("npagenum") %>页</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>跳转至第</label>
+            <input id="randompage" type="text"  />页
+            <button onclick="random()">跳转</button>
+            <label>当前是第<%= (Integer)request.getAttribute("npageno") %>页</label>
             <a class="next" href="">&gt;&gt;</a>
         </div>
     </div>
 
 </div>
 <script>
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
-    });
-
-
-    /*用户-删除*/
-    function member_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
-        });
+    function First(){
+        location.href = "/NewsPage?npageno=1";
     }
 
+    function Last(){
+        var pageno =<%= (Integer)request.getAttribute("npageno")  %>
+        if(pageno<=1){
+            alert("这已经是最前面一页！");
+            return;
+        }else{
+            pageno = pageno-1;
+            location.href = "/NewsPage?npageno="+pageno;
+        }
+    }
+    function Next(){
+        var pageno =<%= (Integer)request.getAttribute("npageno")  %>
+        var pagenum =<%= (Integer)request.getAttribute("npagenum") %>
+        if(pageno>=pagenum){
+            alert("没有下一页了！");
+            return;
+        }else{
+            pageno++;
+            location.href = "/NewsPage?npageno="+pageno;
+        }
+    }
 
+    function End(){
+        var pagenum =<%= (Integer)request.getAttribute("npagenum") %>
+            location.href = "/NewsPage?npageno="+pagenum;
+    }
 
-    function delAll (argument) {
+    function random(){
+        var spage=document.getElementById("randompage").value;
+        var pagenum =<%= (Integer)request.getAttribute("npagenum") %>
 
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
+        if((spage>=1) && (spage<=pagenum)){
+            var pageno = spage;
+            location.href = "/NewsPage?npageno="+pageno;
+        }else{
+            alert("超出页码范围！请重新输入");
+        }
     }
 </script>
 </body>

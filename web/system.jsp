@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.nddmwdf.program.entity.Admin" %>
+<%@ page import="java.io.PrintWriter" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,21 +27,26 @@
 
 </head>
 <body>
+<%
+    boolean isLogin = false;
+    String Name = (String)request.getSession().getAttribute("loginName");
+    if(Name == null){
+        PrintWriter out1 = response.getWriter();
+        out1.print("<script>alert('！请重新登录');</script>");
+        out1.print("<script>window.location='/login.jsp'; </script>");
+        out1.close();
+    }
+    else
+        {
+            isLogin=true;
+        }
+%>
 <!-- 顶部开始 -->
 <div class="container">
     <div class="logo"><a href="forjsp/index.jsp">易分环保网</a></div>
     <div class="left_open">
         <i title="展开左侧栏" class="iconfont">&#xe699;</i>
     </div>
-    <%
-        boolean isLogin = false;
-        String loginName = (String)request.getSession().getAttribute("adminLoginName");
-        if(loginName != null && !"".equals(loginName)){
-            isLogin = true;
-        }
-        request.setAttribute("isLogin",isLogin);
-        request.setAttribute("loginName",loginName);
-    %>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
             <a href="">${loginName}</a>
@@ -70,11 +76,6 @@
                     <li><a href="jsp/welcome.jsp"><i class="iconfont">&#xe6a7;</i><cite>控制台</cite></a></li >
                 </ul>
             </li>
-
-
-
-
-
 
             <li>
                 <a href="javascript:;">

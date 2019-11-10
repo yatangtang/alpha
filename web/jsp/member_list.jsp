@@ -6,44 +6,29 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    class DbUtil {
-
-        ResourceBundle bundle = ResourceBundle.getBundle("jdbc");
-
-        private String dbUrl = bundle.getString("dbUrl");
-        private String dbUser = bundle.getString("dbUser");
-        private String dbPassword = bundle.getString("dbPassword");
-        private String driver = "com.mysql.jdbc.Driver";
-
-        private Connection connection = null;
-
-        public Connection getConnection(){
-            try {
-                Class.forName(driver);
-                connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
-            } catch (Exception e) {
-                System.out.println("数据库连接失败");
-                e.printStackTrace();
-            }
-            return connection;
-        }
-
-        public void closeCon(){
-            if(connection != null)
-                try {
-                    connection.close();
-                    System.out.println("数据库已关闭");
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-        }
-    }
-%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.ResourceBundle" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="com.nddmwdf.program.dao.UserDao" %>
+<%@ page import="com.nddmwdf.program.entity.User" %>
+<%@ page import="java.util.List" %>
 <html>
-
+<%
+    //打开浏览器时给pageno初始化，不然会报空指针异常
+    UserDao ul = new UserDao();
+    User user=new User();
+    if(request.getAttribute("pageno") == null){
+        request.setAttribute("pageno",1);
+    }
+    //给每条数据编序号
+    int count = 5*(Integer)request.getAttribute("pageno")-5;
+        if (request.getAttribute("us") == null) {
+            List<User> al = ul.queryuserlimit(1);
+            request.setAttribute("us", al);
+            int pagenum = ul.getPage();
+            request.setAttribute("pagenum", pagenum);
+        }
+%>
 <head>
     <meta charset="UTF-8">
     <title>欢迎页面-L-admin1.0</title>
@@ -82,9 +67,9 @@
         </form>
     </div>
     <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
+        <%--<button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>--%>
 
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        <span class="x-right" style="line-height:40px">共有数据：<%= (Integer)request.getAttribute("usernum") %>条</span>
     </xblock>
     <table class="layui-table">
         <thead>
@@ -101,22 +86,14 @@
         </thead>
         <tbody>
         <tr>
-        <%
-            DbUtil dbUtil=new DbUtil();
-            String sql="SELECT * from users";
-            Connection connection=dbUtil.getConnection();
-            PreparedStatement pst;
-            pst=connection.prepareStatement(sql);
-            ResultSet rs=pst.executeQuery(sql);
-            while(rs.next()){
-        %>
-        <td>
+        <c:forEach items="${us}" var="user">
+            <td>
             <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
         </td>
-        <td><%=rs.getString(1)%></td>
-        <td><%=rs.getString(2)%>></td>
-        <td><%=rs.getString(4)%></td>
-        <td><%=rs.getString(5)%></td>
+        <td><%= count+=1 %></td>
+        <td>${user.loginName}</td>
+        <td>${user.name}</td>
+        <td>${user.sex}</td>
 
         <td class="td-manage">
             <%--<a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">--%>
@@ -128,89 +105,74 @@
             <%--<a onclick="x_admin_show('修改密码','member-password.html',600,400)" title="修改密码" href="javascript:;">--%>
                 <%--<i class="layui-icon">&#xe631;</i>--%>
             <%--</a>--%>
-            <a title="删除" onclick="member_del(this,'要删除的id')" href="/UserDelete?user_id=<%=rs.getString(1)%>">
+            <a title="删除" onclick="" href="/UserDelete?username=${user.loginName}">
                 <i class="layui-icon">&#xe640;</i>
             </a>
         </td>
         </tr>
-        <%
-            }
-        %>
+        </c:forEach>
         </tbody>
     </table>
     <div class="page">
         <div>
-            <a class="prev" href="">&lt;&lt;</a>
-            <a class="num" href="">1</a>
-            <span class="current">2</span>
-            <a class="num" href="">3</a>
-            <a class="num" href="">489</a>
+            <td><button onclick="First()">首页</button></td>
+            <td><button onclick="Last()">上一页</button></td>
+            <td><button onclick="Next()">下一页</button></td>
+            <td><button onclick="End()">尾页</button></td>
+            <label>当前数据库中共有<%= (Integer)request.getAttribute("pagenum") %>页</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>跳转至第</label>
+            <input id="randompage" type="text"  />页
+            <button onclick="random()">跳转</button>
+            <label>当前是第<%= (Integer)request.getAttribute("pageno") %>页</label>
             <a class="next" href="">&gt;&gt;</a>
         </div>
     </div>
 
 </div>
 <script>
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
 
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
-        });
-    });
-
-    /*用户-停用*/
-    function member_stop(obj,id){
-        layer.confirm('确认要停用吗？',function(index){
-
-            if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-            }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-            }
-
-        });
+    function First(){
+        location.href = "/UserPage?pageno=1";
     }
 
-    /*用户-删除*/
-    function member_del(obj,id){
-        layer.confirm('确认要删除吗？',function(index){
-            //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
-        });
+    function Last(){
+        var pageno =<%= (Integer)request.getAttribute("pageno")  %>
+        if(pageno<=1){
+            alert("这已经是最前面一页！");
+            return;
+        }else{
+            pageno = pageno-1;
+            location.href = "/UserPage?pageno="+pageno;
+        }
+    }
+    function Next(){
+        var pageno =<%= (Integer)request.getAttribute("pageno")  %>
+        var pagenum =<%= (Integer)request.getAttribute("pagenum") %>
+        if(pageno>=pagenum){
+            alert("没有下一页了！");
+            return;
+        }else{
+            pageno++;
+            location.href = "/UserPage?pageno="+pageno;
+        }
     }
 
+    function End(){
+        var pagenum =<%= (Integer)request.getAttribute("pagenum") %>
+            location.href = "/UserPage?pageno="+pagenum;
+    }
 
+    function random(){
+        var spage=document.getElementById("randompage").value;
+        var pagenum =<%= (Integer)request.getAttribute("pagenum") %>
 
-    function delAll (argument) {
-
-        var data = tableCheck.getData();
-
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
+        if((spage>=1) && (spage<=pagenum)){
+            var pageno = spage;
+            location.href = "/UserPage?pageno="+pageno;
+        }else{
+            alert("超出页码范围！请重新输入");
+        }
     }
 </script>
 </body>
-
 </html>
